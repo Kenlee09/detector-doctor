@@ -21,9 +21,10 @@ runs/
 *.trace.jsonl
 fixtures/metrics.regen.json
 
-# Real datasets / weights stay out of the repo
-data/
-weights/
+# Real datasets / weights stay out of the repo (root-anchored on purpose: a bare `data/`
+# would also match src/dd/data/ and silently drop the source package)
+/data/
+/weights/
 *.pt
 *.onnx
 *.pth
