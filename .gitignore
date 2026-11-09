@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+
+# Test / tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Runtime artifacts (never commit: they are regenerated and show up in traces)
+artifacts/
+runs/
+*.trace.jsonl
+fixtures/metrics.regen.json
+
+# Real datasets / weights stay out of the repo
+data/
+weights/
+*.pt
+*.onnx
+*.pth
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db

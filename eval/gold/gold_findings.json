@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "note": "Human-authored conclusions, written BEFORE the agent existed. The agent must rediscover these from the metric table alone. Used as the label set for gold-standard replay.",
+  "findings": [
+    {
+      "id": "G-1",
+      "kind": "non_monotonic",
+      "claim": "Detection accuracy does not degrade monotonically with pitch angle: it peaks in a mid-elevation band and then falls toward grazing views.",
+      "human_evidence": "Per-bin AP50 curves for all 13 detectors share a peak-then-drop shape.",
+      "must_reproduce": true
+    },
+    {
+      "id": "G-2",
+      "kind": "wide_gap",
+      "claim": "The best-to-worst viewpoint domain gap is 25-32 AP50 points, which exceeds the spread between detectors.",
+      "range": [25.0, 32.0],
+      "must_reproduce": true
+    },
+    {
+      "id": "G-3",
+      "kind": "class_dissociation",
+      "claim": "Classes dissociate across viewpoint: the strongest class at the best slice is not the strongest class at the worst slice.",
+      "must_reproduce": true
+    }
+  ],
+  "thresholds": {
+    "min_recall": 1.0,
+    "max_hallucination_rate": 0.0
+  },
+  "gap_tolerance": 1.0,
+  "known_non_findings": [
+    {
+      "kind": "rank_instability",
+      "why": "Detector ordering is consistent across slices in the source benchmark; the agent must NOT report rank instability. It is kept as a negative control for the analysis stage."
+    }
+  ]
+}

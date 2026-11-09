@@ -1,0 +1,653 @@
+{
+  "meta": {
+    "dataset": "anglebench",
+    "attr": "pitch",
+    "scale": "AP50 on 0-100",
+    "slices": "pitch bins in degrees",
+    "synthetic": true,
+    "note": "Synthetic fixture that mirrors the shape of the AngleDrone findings. Numbers are invented; do not cite them as measurements.",
+    "source": "fixtures/gen_fixture.py"
+  },
+  "detectors": [
+    "yolov8n",
+    "fasterrcnn_r50",
+    "yolov11m",
+    "rtdetr_l",
+    "dino_detr_vitl",
+    "yolo26x"
+  ],
+  "slices": [
+    "0-15",
+    "15-30",
+    "30-45",
+    "45-60",
+    "60-75",
+    "75-90"
+  ],
+  "values": {
+    "yolov8n": {
+      "0-15": {
+        "map50": 52.0,
+        "precision": 51.92,
+        "recall": 46.8,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 58.24,
+          "van": 45.76,
+          "truck": 43.68,
+          "bus": 41.6,
+          "person": 32.24,
+          "bicycle": 28.6,
+          "boat": 24.96,
+          "other": 20.8
+        }
+      },
+      "15-30": {
+        "map50": 60.14,
+        "precision": 59.74,
+        "recall": 54.13,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 65.56,
+          "truck": 53.23,
+          "van": 52.93,
+          "bus": 48.11,
+          "person": 37.29,
+          "bicycle": 33.08,
+          "boat": 28.87,
+          "other": 24.06
+        }
+      },
+      "30-45": {
+        "map50": 67.52,
+        "precision": 66.82,
+        "recall": 60.77,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 71.57,
+          "truck": 62.79,
+          "van": 59.42,
+          "bus": 54.02,
+          "person": 41.86,
+          "bicycle": 37.14,
+          "boat": 32.41,
+          "other": 27.01
+        }
+      },
+      "45-60": {
+        "map50": 71.54,
+        "precision": 70.68,
+        "recall": 64.39,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 73.69,
+          "truck": 69.75,
+          "van": 62.96,
+          "bus": 57.23,
+          "person": 44.36,
+          "bicycle": 39.35,
+          "boat": 34.34,
+          "other": 28.62
+        }
+      },
+      "60-75": {
+        "map50": 58.8,
+        "precision": 58.45,
+        "recall": 52.92,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 59.98,
+          "car": 58.8,
+          "van": 51.75,
+          "bus": 47.04,
+          "person": 36.46,
+          "bicycle": 32.34,
+          "boat": 28.22,
+          "other": 23.52
+        }
+      },
+      "75-90": {
+        "map50": 46.54,
+        "precision": 46.68,
+        "recall": 41.89,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 49.56,
+          "car": 45.14,
+          "van": 40.95,
+          "bus": 37.23,
+          "person": 28.85,
+          "bicycle": 25.6,
+          "boat": 22.34,
+          "other": 18.62
+        }
+      }
+    },
+    "fasterrcnn_r50": {
+      "0-15": {
+        "map50": 47.5,
+        "precision": 47.6,
+        "recall": 42.75,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 53.2,
+          "van": 41.8,
+          "truck": 39.9,
+          "bus": 38.0,
+          "person": 29.45,
+          "bicycle": 26.13,
+          "boat": 22.8,
+          "other": 19.0
+        }
+      },
+      "15-30": {
+        "map50": 56.85,
+        "precision": 56.58,
+        "recall": 51.16,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 61.97,
+          "truck": 50.31,
+          "van": 50.03,
+          "bus": 45.48,
+          "person": 35.25,
+          "bicycle": 31.27,
+          "boat": 27.29,
+          "other": 22.74
+        }
+      },
+      "30-45": {
+        "map50": 65.32,
+        "precision": 64.71,
+        "recall": 58.79,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 69.24,
+          "truck": 60.75,
+          "van": 57.48,
+          "bus": 52.26,
+          "person": 40.5,
+          "bicycle": 35.93,
+          "boat": 31.35,
+          "other": 26.13
+        }
+      },
+      "45-60": {
+        "map50": 69.94,
+        "precision": 69.14,
+        "recall": 62.95,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 72.04,
+          "truck": 68.19,
+          "van": 61.55,
+          "bus": 55.95,
+          "person": 43.36,
+          "bicycle": 38.47,
+          "boat": 33.57,
+          "other": 27.98
+        }
+      },
+      "60-75": {
+        "map50": 55.31,
+        "precision": 55.1,
+        "recall": 49.78,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 56.42,
+          "car": 55.31,
+          "van": 48.67,
+          "bus": 44.25,
+          "person": 34.29,
+          "bicycle": 30.42,
+          "boat": 26.55,
+          "other": 22.12
+        }
+      },
+      "75-90": {
+        "map50": 41.23,
+        "precision": 41.58,
+        "recall": 37.11,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 43.91,
+          "car": 39.99,
+          "van": 36.28,
+          "bus": 32.98,
+          "person": 25.56,
+          "bicycle": 22.68,
+          "boat": 19.79,
+          "other": 16.49
+        }
+      }
+    },
+    "yolov11m": {
+      "0-15": {
+        "map50": 56.0,
+        "precision": 55.76,
+        "recall": 50.4,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 62.72,
+          "van": 49.28,
+          "truck": 47.04,
+          "bus": 44.8,
+          "person": 34.72,
+          "bicycle": 30.8,
+          "boat": 26.88,
+          "other": 22.4
+        }
+      },
+      "15-30": {
+        "map50": 64.5,
+        "precision": 63.92,
+        "recall": 58.05,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 70.31,
+          "truck": 57.08,
+          "van": 56.76,
+          "bus": 51.6,
+          "person": 39.99,
+          "bicycle": 35.48,
+          "boat": 30.96,
+          "other": 25.8
+        }
+      },
+      "30-45": {
+        "map50": 72.2,
+        "precision": 71.31,
+        "recall": 64.98,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 76.53,
+          "truck": 67.15,
+          "van": 63.54,
+          "bus": 57.76,
+          "person": 44.76,
+          "bicycle": 39.71,
+          "boat": 34.66,
+          "other": 28.88
+        }
+      },
+      "45-60": {
+        "map50": 76.4,
+        "precision": 75.34,
+        "recall": 68.76,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 78.69,
+          "truck": 74.49,
+          "van": 67.23,
+          "bus": 61.12,
+          "person": 47.37,
+          "bicycle": 42.02,
+          "boat": 36.67,
+          "other": 30.56
+        }
+      },
+      "60-75": {
+        "map50": 63.1,
+        "precision": 62.58,
+        "recall": 56.79,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 64.36,
+          "car": 63.1,
+          "van": 55.53,
+          "bus": 50.48,
+          "person": 39.12,
+          "bicycle": 34.71,
+          "boat": 30.29,
+          "other": 25.24
+        }
+      },
+      "75-90": {
+        "map50": 50.3,
+        "precision": 50.29,
+        "recall": 45.27,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 53.57,
+          "car": 48.79,
+          "van": 44.26,
+          "bus": 40.24,
+          "person": 31.19,
+          "bicycle": 27.66,
+          "boat": 24.14,
+          "other": 20.12
+        }
+      }
+    },
+    "rtdetr_l": {
+      "0-15": {
+        "map50": 58.5,
+        "precision": 58.16,
+        "recall": 52.65,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 65.52,
+          "van": 51.48,
+          "truck": 49.14,
+          "bus": 46.8,
+          "person": 36.27,
+          "bicycle": 32.18,
+          "boat": 28.08,
+          "other": 23.4
+        }
+      },
+      "15-30": {
+        "map50": 67.42,
+        "precision": 66.73,
+        "recall": 60.68,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 73.49,
+          "truck": 59.67,
+          "van": 59.33,
+          "bus": 53.94,
+          "person": 41.8,
+          "bicycle": 37.08,
+          "boat": 32.36,
+          "other": 26.97
+        }
+      },
+      "30-45": {
+        "map50": 75.51,
+        "precision": 74.49,
+        "recall": 67.96,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 80.04,
+          "truck": 70.22,
+          "van": 66.45,
+          "bus": 60.41,
+          "person": 46.82,
+          "bicycle": 41.53,
+          "boat": 36.24,
+          "other": 30.2
+        }
+      },
+      "45-60": {
+        "map50": 79.92,
+        "precision": 78.72,
+        "recall": 71.93,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 82.32,
+          "truck": 77.92,
+          "van": 70.33,
+          "bus": 63.94,
+          "person": 49.55,
+          "bicycle": 43.96,
+          "boat": 38.36,
+          "other": 31.97
+        }
+      },
+      "60-75": {
+        "map50": 65.95,
+        "precision": 65.32,
+        "recall": 59.36,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 67.27,
+          "car": 65.95,
+          "van": 58.04,
+          "bus": 52.76,
+          "person": 40.89,
+          "bicycle": 36.28,
+          "boat": 31.66,
+          "other": 26.38
+        }
+      },
+      "75-90": {
+        "map50": 52.52,
+        "precision": 52.41,
+        "recall": 47.26,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 55.93,
+          "car": 50.94,
+          "van": 46.21,
+          "bus": 42.01,
+          "person": 32.56,
+          "bicycle": 28.88,
+          "boat": 25.21,
+          "other": 21.01
+        }
+      }
+    },
+    "dino_detr_vitl": {
+      "0-15": {
+        "map50": 61.0,
+        "precision": 60.56,
+        "recall": 54.9,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 68.32,
+          "van": 53.68,
+          "truck": 51.24,
+          "bus": 48.8,
+          "person": 37.82,
+          "bicycle": 33.55,
+          "boat": 29.28,
+          "other": 24.4
+        }
+      },
+      "15-30": {
+        "map50": 71.11,
+        "precision": 70.27,
+        "recall": 64.0,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 77.52,
+          "truck": 62.94,
+          "van": 62.58,
+          "bus": 56.89,
+          "person": 44.09,
+          "bicycle": 39.11,
+          "boat": 34.14,
+          "other": 28.45
+        }
+      },
+      "30-45": {
+        "map50": 80.28,
+        "precision": 79.07,
+        "recall": 72.25,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 85.09,
+          "truck": 74.66,
+          "van": 70.64,
+          "bus": 64.22,
+          "person": 49.77,
+          "bicycle": 44.15,
+          "boat": 38.53,
+          "other": 32.11
+        }
+      },
+      "45-60": {
+        "map50": 85.28,
+        "precision": 83.86,
+        "recall": 76.75,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 87.83,
+          "truck": 83.14,
+          "van": 75.04,
+          "bus": 68.22,
+          "person": 52.87,
+          "bicycle": 46.9,
+          "boat": 40.93,
+          "other": 34.11
+        }
+      },
+      "60-75": {
+        "map50": 69.45,
+        "precision": 68.67,
+        "recall": 62.5,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 70.84,
+          "car": 69.45,
+          "van": 61.12,
+          "bus": 55.56,
+          "person": 43.06,
+          "bicycle": 38.2,
+          "boat": 33.34,
+          "other": 27.78
+        }
+      },
+      "75-90": {
+        "map50": 54.22,
+        "precision": 54.05,
+        "recall": 48.8,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 57.74,
+          "car": 52.59,
+          "van": 47.71,
+          "bus": 43.37,
+          "person": 33.61,
+          "bicycle": 29.82,
+          "boat": 26.02,
+          "other": 21.69
+        }
+      }
+    },
+    "yolo26x": {
+      "0-15": {
+        "map50": 64.0,
+        "precision": 63.44,
+        "recall": 57.6,
+        "n_gt": 3000,
+        "n_pred": 4200,
+        "per_class": {
+          "car": 71.68,
+          "van": 56.32,
+          "truck": 53.76,
+          "bus": 51.2,
+          "person": 39.68,
+          "bicycle": 35.2,
+          "boat": 30.72,
+          "other": 25.6
+        }
+      },
+      "15-30": {
+        "map50": 74.42,
+        "precision": 73.44,
+        "recall": 66.98,
+        "n_gt": 3140,
+        "n_pred": 4460,
+        "per_class": {
+          "car": 81.12,
+          "truck": 65.86,
+          "van": 65.49,
+          "bus": 59.54,
+          "person": 46.14,
+          "bicycle": 40.93,
+          "boat": 35.72,
+          "other": 29.77
+        }
+      },
+      "30-45": {
+        "map50": 83.86,
+        "precision": 82.51,
+        "recall": 75.48,
+        "n_gt": 3280,
+        "n_pred": 4720,
+        "per_class": {
+          "car": 88.89,
+          "truck": 77.99,
+          "van": 73.8,
+          "bus": 67.09,
+          "person": 51.99,
+          "bicycle": 46.12,
+          "boat": 40.25,
+          "other": 33.54
+        }
+      },
+      "45-60": {
+        "map50": 89.01,
+        "precision": 87.45,
+        "recall": 80.11,
+        "n_gt": 3420,
+        "n_pred": 4980,
+        "per_class": {
+          "car": 91.68,
+          "truck": 86.79,
+          "van": 78.33,
+          "bus": 71.21,
+          "person": 55.19,
+          "bicycle": 48.96,
+          "boat": 42.72,
+          "other": 35.6
+        }
+      },
+      "60-75": {
+        "map50": 72.7,
+        "precision": 71.8,
+        "recall": 65.43,
+        "n_gt": 3560,
+        "n_pred": 5240,
+        "per_class": {
+          "truck": 74.16,
+          "car": 72.7,
+          "van": 63.98,
+          "bus": 58.16,
+          "person": 45.08,
+          "bicycle": 39.99,
+          "boat": 34.9,
+          "other": 29.08
+        }
+      },
+      "75-90": {
+        "map50": 57.01,
+        "precision": 56.73,
+        "recall": 51.31,
+        "n_gt": 3700,
+        "n_pred": 5500,
+        "per_class": {
+          "truck": 60.72,
+          "car": 55.3,
+          "van": 50.17,
+          "bus": 45.61,
+          "person": 35.35,
+          "bicycle": 31.36,
+          "boat": 27.37,
+          "other": 22.8
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Fixture is reproducible
+        run: |
+          python fixtures/gen_fixture.py --out fixtures/metrics.regen.json
+          python - <<'PY'
+          import json, pathlib, sys
+          a = json.loads(pathlib.Path("fixtures/metrics.json").read_text(encoding="utf-8"))
+          b = json.loads(pathlib.Path("fixtures/metrics.regen.json").read_text(encoding="utf-8"))
+          if a != b:
+              sys.exit("fixtures/metrics.json does not match its generator — regenerate it")
+          print("fixture is deterministic:", len(a["detectors"]), "detectors x", len(a["slices"]))
+          PY
+
+      - name: Full pipeline (no key, deterministic backend)
+        run: dd run --out artifacts/ci-run
+
+      - name: Selftest (hallucination probe armed)
+        run: dd selftest --out artifacts/ci-selftest
+
+      - name: Gold-standard replay
+        run: dd eval --out artifacts/ci-eval
+
+      - name: Eval gates
+        run: |
+          python - <<'PY'
+          import json, pathlib, sys
+          p = pathlib.Path("artifacts/ci-eval/report.json")
+          payload = json.loads(p.read_text(encoding="utf-8"))
+          checks = {
+              "recall": payload["recall"] >= 1.0,
+              "no hallucination": payload["hallucination_rate"] == 0.0,
+              "probe caught": payload["probe_caught"] is True,
+              "no false positives": payload["unexpected_findings"] == [],
+              "no human intervention": payload["interventions"] == 0,
+              "gap within tolerance": payload["gap_within_tolerance"] is True,
+          }
+          for name, ok in checks.items():
+              print(("PASS  " if ok else "FAIL  ") + name)
+          if not all(checks.values()):
+              sys.exit("evaluation gates failed")
+          PY
+
+      - name: Resume is a cache hit, not a re-spend
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          s = json.loads(pathlib.Path("artifacts/ci-run/state.json").read_text(encoding="utf-8"))
+          print("gpu minutes after first run:", s["ctx"]["audit"]["budget"]["gpu_minutes_used"])
+          PY
+          dd run --out artifacts/ci-run --resume
+          python - <<'PY'
+          import json, pathlib, sys
+          s = json.loads(pathlib.Path("artifacts/ci-run/state.json").read_text(encoding="utf-8"))
+          inv = s["ctx"]["audit"]["invocation"]
+          print("invocation on resume:", json.dumps(inv, indent=2))
+          if inv["experiments_ran"] != 0:
+              sys.exit("resume re-ran experiments — idempotency is broken")
+          if not inv["resumed"]:
+              sys.exit("resume did not detect the existing checkpoint")
+          if inv["nodes_skipped"] != 8:
+              sys.exit(f"expected all 8 nodes to be skipped, got {inv['nodes_skipped']}")
+          if s["ctx"]["audit"]["claims_rejected"] != 0:
+              sys.exit("resume produced rejected claims")
+          PY
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-py${{ matrix.python-version }}
+          path: |
+            artifacts/ci-run/report.md
+            artifacts/ci-run/report.json
+            artifacts/ci-run/trace.jsonl
+            artifacts/ci-eval/report.json
+          if-no-files-found: warn
+          retention-days: 14

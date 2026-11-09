@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "note": "Costed remediation options. The agent may rank and explain these entries; it may not invent new ones. `expected_gain` is AP50 points recorded per option and is what the simulated runner replays.",
+  "options": [
+    {
+      "id": "pp-whitelist",
+      "symptom": "wide_gap",
+      "action": "postprocess.class_whitelist",
+      "layer": "postprocess",
+      "expected_gain": 2.1,
+      "cost": "free",
+      "gpu_minutes": 0.2,
+      "rationale": "Suppress out-of-scope classes that dominate low-elevation false positives; the bottleneck is precision, not capacity, so retraining is wasted spend.",
+      "source": "override postprocess=whitelist"
+    },
+    {
+      "id": "pp-track-filter",
+      "symptom": "wide_gap",
+      "action": "postprocess.short_track_filter",
+      "layer": "postprocess",
+      "expected_gain": 1.6,
+      "cost": "free",
+      "gpu_minutes": 0.3,
+      "rationale": "Drop detections that do not persist for k frames; removes single-frame clutter without touching the detector.",
+      "source": "override postprocess=track_filter"
+    },
+    {
+      "id": "inf-tile",
+      "symptom": "wide_gap",
+      "action": "inference.multi_scale_tiling",
+      "layer": "inference",
+      "expected_gain": 3.4,
+      "cost": "cheap",
+      "gpu_minutes": 1.5,
+      "rationale": "High-elevation frames push objects to ~10 px; tiled inference restores effective resolution at a fraction of retraining cost.",
+      "source": "override inference=tiling"
+    },
+    {
+      "id": "data-oblique-aug",
+      "symptom": "non_monotonic",
+      "action": "train.oblique_view_augmentation",
+      "layer": "train",
+      "expected_gain": 5.2,
+      "cost": "gpu",
+      "gpu_minutes": 18.0,
+      "rationale": "The mid-elevation peak followed by a tail drop indicates an under-represented oblique regime; targeted perspective augmentation attacks the coverage gap directly.",
+      "source": "override train=oblique_aug"
+    },
+    {
+      "id": "data-bin-reweight",
+      "symptom": "non_monotonic",
+      "action": "train.slice_balanced_sampling",
+      "layer": "train",
+      "expected_gain": 4.1,
+      "cost": "gpu",
+      "gpu_minutes": 14.0,
+      "rationale": "Inverse-frequency sampling over pitch bins equalises the per-bin effective sample count.",
+      "source": "override train=slice_balanced"
+    },
+    {
+      "id": "tta-flip-scale",
+      "symptom": "non_monotonic",
+      "action": "inference.tta_flip_scale",
+      "layer": "inference",
+      "expected_gain": 2.8,
+      "cost": "cheap",
+      "gpu_minutes": 1.0,
+      "rationale": "Test-time augmentation recovers part of the tail drop at low cost; useful as a stopgap while a retrain is scheduled.",
+      "source": "override inference=tta"
+    },
+    {
+      "id": "loss-class-balance",
+      "symptom": "class_dissociation",
+      "action": "train.class_balanced_loss",
+      "layer": "train",
+      "expected_gain": 4.6,
+      "cost": "gpu",
+      "gpu_minutes": 16.0,
+      "rationale": "When the top-1 class changes with viewpoint, the shared classification head is trading classes off against each other; class-balanced weighting decouples them.",
+      "source": "override train=class_balanced"
+    },
+    {
+      "id": "head-decouple",
+      "symptom": "class_dissociation",
+      "action": "arch.decoupled_class_head",
+      "layer": "train",
+      "expected_gain": 3.9,
+      "cost": "gpu",
+      "gpu_minutes": 20.0,
+      "rationale": "A per-viewpoint-group auxiliary head lets the shared trunk keep one representation while classes specialise.",
+      "source": "override arch=decoupled_head"
+    },
+    {
+      "id": "ensemble-viewpoint",
+      "symptom": "rank_instability",
+      "action": "inference.viewpoint_conditioned_ensemble",
+      "layer": "inference",
+      "expected_gain": 6.1,
+      "cost": "cheap",
+      "gpu_minutes": 2.5,
+      "rationale": "No single detector wins at every viewpoint; routing by an estimated viewpoint bin turns instability into a per-bin best-of.",
+      "source": "override inference=vp_ensemble"
+    },
+    {
+      "id": "vp-router",
+      "symptom": "rank_instability",
+      "action": "inference.viewpoint_router",
+      "layer": "inference",
+      "expected_gain": 4.4,
+      "cost": "cheap",
+      "gpu_minutes": 1.2,
+      "rationale": "A frozen-backbone pitch classifier is 91.7% accurate at bin level, which is enough to route to the best detector per bin.",
+      "source": "override inference=vp_router"
+    }
+  ]
+}
