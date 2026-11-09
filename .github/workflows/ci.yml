@@ -55,7 +55,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, pathlib, sys
-          p = pathlib.Path("artifacts/ci-eval/report.json")
+          p = pathlib.Path("artifacts/ci-eval/eval.json")
           payload = json.loads(p.read_text(encoding="utf-8"))
           checks = {
               "recall": payload["recall"] >= 1.0,
@@ -64,6 +64,7 @@ jobs:
               "no false positives": payload["unexpected_findings"] == [],
               "no human intervention": payload["interventions"] == 0,
               "gap within tolerance": payload["gap_within_tolerance"] is True,
+              "verdict": payload["passed"] is True,
           }
           for name, ok in checks.items():
               print(("PASS  " if ok else "FAIL  ") + name)
@@ -103,6 +104,7 @@ jobs:
             artifacts/ci-run/report.md
             artifacts/ci-run/report.json
             artifacts/ci-run/trace.jsonl
+            artifacts/ci-eval/eval.json
             artifacts/ci-eval/report.json
           if-no-files-found: warn
           retention-days: 14

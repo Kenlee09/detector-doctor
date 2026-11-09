@@ -41,6 +41,8 @@ Two design points matter here:
 - **`known_non_findings` is part of the label set.** `rank_instability` is a real detector of the
   analysis code, and on this fixture it must stay silent. A run that reports it fails. Without this,
   the eval only rewards finding more things.
+- **Anything unlisted is a failure.** `passed` requires `unexpected_findings == []`, so the label
+  set is a complete specification of what the run is allowed to claim — not a floor.
 - **`range` + `gap_tolerance` instead of an exact number.** The gold asserts the *magnitude* is
   right to ±1.0 AP50, which is the precision a human reading the table can honestly claim. Tighter
   would be false authority.
@@ -81,6 +83,10 @@ This is the single most valuable assertion in the repo. A refactor that weakens
 
 `gpu_minutes`, `experiments_ran`, `tokens` and `wall_seconds` are reported but not gated: they are
 the cost side of the ledger, and the right ceiling depends on the deployment.
+
+The verdict is written to `artifacts/eval/eval.json`. That file is deliberately separate from
+`report.json`: `report.json` is the agent's own output, `eval.json` is the judgement of that output.
+CI reads only `eval.json`, so the agent cannot influence its own grade.
 
 ## 5. Cost accounting
 
@@ -123,7 +129,7 @@ measuring plumbing and judgement separately.
 ```bash
 dd eval                          # writes artifacts/eval/, exits 0 on pass, 2 on failure
 python eval/run_gold_replay.py    # same thing, without installing
-python -m pytest -q               # 47 offline tests
+python -m pytest -q               # 50 offline tests
 ```
 
 CI runs all three in `.github/workflows/ci.yml`, on every push and pull request.

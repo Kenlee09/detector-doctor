@@ -136,9 +136,19 @@ def run_eval(
         and result.probe_caught
         and gap_ok
         and result.interventions == 0
+        # False positives must fail the run too: a detector that reports everything is
+        # as useless as one that reports nothing.
+        and not extra
     )
     payload = result.to_dict()
     payload["gap_within_tolerance"] = gap_ok
     payload["report"] = audit["report"]
     payload["gold_version"] = gold_payload.get("version", "unknown")
+
+    # Persist the verdict next to the run so CI and humans read the same bytes.
+    # `report.json` is the agent's output; `eval.json` is the judgement of that output.
+    out_path = Path(out_dir) / "eval.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    payload["eval_path"] = str(out_path)
     return payload

@@ -172,7 +172,7 @@ src/dd/
 playbook/playbook.json    # versioned, costed remediation options (the only legal actions)
 fixtures/                 # synthetic metrics table + its generator
 eval/gold/                # frozen human conclusions = the label set
-tests/                    # 47 tests, all offline
+tests/                    # 50 tests, all offline
 ```
 
 ## Design decisions
