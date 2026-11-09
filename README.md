@@ -1,5 +1,11 @@
 # Detector Doctor
 
+[![ci](https://github.com/Kenlee09/detector-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/Kenlee09/detector-doctor/actions/workflows/ci.yml)
+[![python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/Kenlee09/detector-doctor)
+[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![runtime deps](https://img.shields.io/badge/runtime%20dependencies-0-brightgreen)](pyproject.toml)
+[![tests](https://img.shields.io/badge/tests-50%20offline-brightgreen)](tests)
+
 **A controlled agent that diagnoses object-detector robustness and proposes evidence-backed fixes.**
 
 Object detectors are evaluated on average accuracy, but they fail unevenly: accuracy across
